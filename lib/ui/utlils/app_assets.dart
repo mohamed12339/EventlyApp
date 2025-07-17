@@ -14,9 +14,13 @@ class AppAssets {
   static const String route = 'assets/images/route.png';
   static const String sport = 'assets/images/sport.png';
   static const String splashBranding = 'assets/images/splash_branding.png';
+  static const String nativeSplashScreen = 'assets/images/Native_splash_screen.png';
+  static const String splashScreen = 'assets/images/Splash_screen.png';
+  static const String icGoogle = 'assets/images/ic_google.png';
 }
 
 class AppSvg {
   static const String icEmail = 'assets/images/svg/ic_Email.svg';
   static const String icPassword = 'assets/images/svg/ic_Password.svg';
+  static const String icTitle = 'assets/images/svg/ic_title.svg';
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_evently/ui/screens/splash/splash.dart';
 import 'package:project_evently/ui/utlils/app_theme.dart';
 
 void main() {
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: AppTheme.lightTheme ,
       darkTheme: AppTheme.darkTheme,
+      home: const Splash(),
 
     );
   }

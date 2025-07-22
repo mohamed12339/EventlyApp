@@ -41,6 +41,13 @@ abstract final class AppTheme {
       fontSize: 20,
       color: AppColors.blue,
       fontWeight: FontWeight.w500,
+
+    ),
+
+    labelSmall: TextStyle(
+      fontSize: 16,
+      color: AppColors.white,
+      fontWeight: FontWeight.w500,
     ),
   );
 
@@ -90,7 +97,7 @@ abstract final class AppTheme {
       border: lightDefaultTextBorder,
       focusedBorder: lightDefaultTextBorder,
       enabledBorder: lightDefaultTextBorder,
-      hintStyle: _lightTextTheme.titleSmall,
+       hintStyle: _lightTextTheme.titleSmall,
       // prefixIconConstraints: BoxConstraints(maxHeight: 24, maxWidth: 24),///دول عشان اصغر ايكون صور الايميل والباسورد
 
     ),
@@ -98,13 +105,18 @@ abstract final class AppTheme {
   );
 
   static ThemeData darkTheme = ThemeData(///theme data: هيا عبارة عن انها بتشيل كل الستايلز بتاعة الابليكيشن كلو خطوط والوان كل حاجة وانا عملت تيكست سيم فوق لية عشان مكبرش الكود بس انتا ممكن تكتبوا جواها عادي بس
-    scaffoldBackgroundColor: AppColors.white,
+    scaffoldBackgroundColor: AppColors.darkBlue,
 
     primaryColor: AppColors.blue,///دية معناها لون الي علي طول موجود في الابلكيشن كلو وانتا بتسخدموا علي طول
+    ///
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.blue),///دية معناها اني هديللك لون وطلع انتا منوا باقي الالوان التانية
+    ///
     textTheme: _darkTextTheme,///دا تبع الي فوق يعني
+    ///
     appBarTheme: AppBarTheme(///دا البار عادي بس بعمل الوان لية light and dark ورديس
+      ///
       backgroundColor: AppColors.blue,
+
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(16),
@@ -113,12 +125,29 @@ abstract final class AppTheme {
       ),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(backgroundColor: AppColors.blue),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.blue ,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+            side: BorderSide(color: AppColors.blue)
+        ),
+        padding: EdgeInsets.symmetric(vertical: 16 ,) ,
+        textStyle: TextStyle(
+            color:  AppColors.white ,
+            fontSize: 16 ,
+            fontWeight: FontWeight.w500
+        ),
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: darkDefaultTextBorder,
       focusedBorder: darkDefaultTextBorder,
       enabledBorder: darkDefaultTextBorder,
+      hintStyle:_darkTextTheme.titleSmall,
+
+
+
     ),
+      dividerTheme: DividerThemeData(color: AppColors.blue , thickness: 1)
   );
 }

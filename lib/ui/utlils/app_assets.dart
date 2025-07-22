@@ -17,6 +17,9 @@ class AppAssets {
   static const String nativeSplashScreen = 'assets/images/Native_splash_screen.png';
   static const String splashScreen = 'assets/images/Splash_screen.png';
   static const String icGoogle = 'assets/images/ic_google.png';
+  static const String icEg = 'assets/images/ic_eg.png';
+  static const String icUsa = 'assets/images/ic_usa.png';
+
 }
 
 class AppSvg {

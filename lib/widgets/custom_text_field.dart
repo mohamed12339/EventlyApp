@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:project_evently/ui/utlils/app_colors.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hint;
   final String? prefixIcon;
   final bool isPassword;
+  final ThemeMode mode ; ///عرفتها عشان استخدمها في تغير لون المود
 
   const CustomTextField({
     super.key,
     required this.hint,
     this.prefixIcon,
     this.isPassword = false,
+    required this.mode ,
   });
 
   @override
@@ -25,15 +28,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
       decoration: InputDecoration(/// فية شرح تحت
 
         prefixIcon: widget.prefixIcon == null ? null : Container(
+
             margin: EdgeInsets.symmetric(horizontal:  12),
-            child: SvgPicture.asset(widget.prefixIcon!)),/// prefixIcon!: دية معناها علي حسب انا بعتللك اية
+            child: SvgPicture.asset(widget.prefixIcon!, color: widget.mode == ThemeMode.light ? AppColors.gray : AppColors.white,)),/// prefixIcon!: دية معناها علي حسب انا بعتللك اية
 
         suffixIcon: widget.isPassword ? InkWell(
             onTap: (){
               obscureText = !obscureText ; /// هنا انا يقولوا لو كنت مخفي اتعكس واظهر لما تدوس علي ايكون العين
               setState(() {});
             },
-            child: Icon( obscureText ? Icons.visibility_off : Icons.remove_red_eye)) : null, ///هنا بقولوا لو انتا مخفي او مش كات حاجة  اظهر ايكون العين الي عليها شرطة ايلس : ظاهر خلي العين من غير شرطة  وانتا بتدوس عليها
+            child: Icon( obscureText ? Icons.visibility_off : Icons.remove_red_eye , color: widget.mode == ThemeMode.light ? AppColors.gray : AppColors.white,) , ) : null, ///هنا بقولوا لو انتا مخفي او مش كات حاجة  اظهر ايكون العين الي عليها شرطة ايلس : ظاهر خلي العين من غير شرطة  وانتا بتدوس عليها
         hintText: widget.hint,
 
       ),
@@ -50,3 +54,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
 //هنا بقولوا لو انا شغال بباسورد دلوقتي حطتيلي ايمون العين لو انا مش  بباسور او مكتبتش باسورد  خلية ب null
 
 /// hintStyle: Theme.of(context).textTheme.titleSmall,/// شرحها في الكشكول
+///
+/// color: widget.mode == ThemeMode.light ? AppColors.gray : AppColors.white,
+/// دية بقولو لون المود light حط اللون دا طب لو ايلس : حط اللون التاني

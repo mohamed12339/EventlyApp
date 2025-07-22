@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:project_evently/l10n/app_localizations.dart';
 import 'package:project_evently/ui/providers/language_provider.dart';
 import 'package:project_evently/ui/providers/theme_provider.dart';
+import 'package:project_evently/ui/screens/home/home.dart';
 import 'package:project_evently/ui/screens/splash/splash.dart';
 import 'package:project_evently/ui/utlils/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
         Locale('en'), // English
         Locale('ar'), // Spanish
       ],
-      home: const Splash(),
+      home: const Home(),
 
     );
   }

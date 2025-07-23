@@ -70,13 +70,9 @@ abstract final class AppTheme {
     textTheme: _lightTextTheme,///دا تبع الي فوق يعني
 
     appBarTheme: AppBarTheme(///دا البار عادي بس بعمل الوان لية light and dark ورديس
-      backgroundColor: AppColors.blue,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(16),
-          bottomRight: Radius.circular(16),
-        ),
-      ),
+      backgroundColor: AppColors.white,
+      centerTitle: true ,
+      titleTextStyle: TextStyle(fontSize: 22 , fontWeight: FontWeight.w400 , color: AppColors.blue )
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

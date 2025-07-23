@@ -21,6 +21,14 @@ class AppAssets {
   static const String icEg = 'assets/images/ic_eg.png';
   static const String icUsa = 'assets/images/ic_usa.png';
   static const String icEN = 'assets/images/ic_EN.png';
+  static const String icAll = 'assets/images/ic_all.png';
+  static const String icBirthday = 'assets/images/ic_birthday.png';
+  static const String icSport = 'assets/images/ic_sport.png';
+  static const String icBookClub = 'assets/images/ic_bookclub.png';
+  static const String icEventDate = 'assets/images/ic_event_date.png';
+  static const String icEventTime = 'assets/images/ic_event_time.png';
+  static const String icLocation = 'assets/images/ic_location.png';
+
 
 }
 

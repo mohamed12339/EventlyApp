@@ -4,7 +4,6 @@ import 'package:project_evently/l10n/app_localizations.dart';
 import 'package:project_evently/ui/providers/language_provider.dart';
 import 'package:project_evently/ui/providers/theme_provider.dart';
 import 'package:project_evently/ui/screens/home/home.dart';
-import 'package:project_evently/ui/screens/splash/splash.dart';
 import 'package:project_evently/ui/utlils/app_theme.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +36,7 @@ class MyApp extends StatelessWidget {
     languageProvider = Provider.of(context);  /// لازم تعرف ال provider جواة ال build لازم ونفس الكلام في التانية
     themeProvider = Provider.of(context);
     return MaterialApp(
-      theme: AppTheme.lightTheme ,
+      theme: AppTheme.lightTheme , /// هنا معاناها كل حاجة بقا عاملها الوان وكدا هتظهر لواحدها بدل ما تعمل لكل حاجة لون وممكن بردو تستخدم theme.of(context)وتكمل بقا لو عايز تجيب حاجاة بردو
       darkTheme: AppTheme.darkTheme,
       themeMode: themeProvider.mode, ///كدا انا بقولوا اشتغل علي حسب المستخدم لما يجي يحول الابيلكيشن لlight or dark
       locale: Locale(languageProvider.currentLocale),

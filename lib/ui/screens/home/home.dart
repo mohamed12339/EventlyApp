@@ -5,6 +5,7 @@ import 'package:project_evently/ui/screens/home/tabs/map/map_tab.dart';
 import 'package:project_evently/ui/screens/home/tabs/profile/profile_tab.dart';
 import 'package:project_evently/ui/utlils/app_assets.dart';
 import 'package:project_evently/ui/utlils/app_colors.dart';
+import 'package:project_evently/ui/utlils/app_routes.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -86,7 +87,9 @@ class _HomeState extends State<Home> {
   buildFab() =>FloatingActionButton(
     backgroundColor: AppColors.blue,
       shape: StadiumBorder(side: BorderSide(color: Colors.white)),  /// دية عشان ال floating يبقا مدور بس وال side حوالينها ابيض كدا
-      onPressed: (){},
+      onPressed: (){
+      Navigator.push(context, AppRoutes.addEvent); /// لما تيجي تدوس علي علامة الزائد تخش علي دية بس
+      },
       child: Icon(Icons.add)
   );
 }

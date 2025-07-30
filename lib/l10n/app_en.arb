@@ -6,5 +6,8 @@
   "noAccountText": "Don’t Have Account?",
   "createAccount": "Create Account",
   "orText": "Or",
-  "googleLogin": "Login With Google"
+  "googleLogin": "Login With Google",
+  "alreadyHaveAccount": "already Have Account?",
+  "nameHint": "Name",
+  "rePasswordHint": "RePassword"
 }

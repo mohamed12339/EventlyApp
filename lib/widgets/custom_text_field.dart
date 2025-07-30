@@ -8,6 +8,7 @@ class CustomTextField extends StatefulWidget {
   final bool isPassword;
   final ThemeMode mode ; ///عرفتها عشان استخدمها في تغير لون المود
   final int minLines  ;
+  final TextEditingController? controller ;
 
   const CustomTextField({
     super.key,
@@ -15,7 +16,8 @@ class CustomTextField extends StatefulWidget {
     this.prefixIcon,
     this.isPassword = false,
     required this.mode ,
-    this.minLines = 1 ,
+    this.minLines = 1,
+    this.controller ,
   });
 
   @override
@@ -27,8 +29,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(///ازاي عرف الborder والحاجات التانبة الي موجود في file apptheme عشان عرفتهم في ال main dart
+      controller: widget.controller,
       minLines: widget.minLines,
-      maxLines: widget.minLines + 1 ,  /// حاجة مهمة عشان هتضرب ايرور بعد لما تعمل min lines
+      maxLines: widget.isPassword ? 1 : widget.minLines + 1 ,  /// حاجة مهمة عشان هتضرب ايرور بعد لما تعمل min lines
 // فانا عملت maxlines وعرفوا واعمل minlines +1 عشان ميضربش ايرور وتكبر حتة customtextfield بتاعة description تمم
       decoration: InputDecoration(/// فية شرح تحت
 

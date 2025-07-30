@@ -36,4 +36,5 @@ class AppSvg {
   static const String icEmail = 'assets/images/svg/ic_Email.svg';
   static const String icPassword = 'assets/images/svg/ic_Password.svg';
   static const String icTitle = 'assets/images/svg/ic_title.svg';
+  static const String icName = 'assets/images/svg/ic_name.svg';
 }

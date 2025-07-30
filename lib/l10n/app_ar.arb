@@ -6,5 +6,8 @@
   "noAccountText": "ليس لديك حساب؟",
   "createAccount": "إنشاء حساب",
   "orText": "أو",
-  "googleLogin": "تسجيل الدخول باستخدام جوجل"
+  "googleLogin": "تسجيل الدخول باستخدام جوجل",
+  "alreadyHaveAccount": "لديك حساب بالفعل؟",
+  "nameHint": "الاسم",
+  "rePasswordHint": "تكرار كلمة المرور مرة اخري"
 }

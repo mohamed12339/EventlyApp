@@ -31,4 +31,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get googleLogin => 'Login With Google';
+
+  @override
+  String get alreadyHaveAccount => 'already Have Account?';
+
+  @override
+  String get nameHint => 'Name';
+
+  @override
+  String get rePasswordHint => 'RePassword';
 }

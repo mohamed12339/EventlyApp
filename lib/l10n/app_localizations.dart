@@ -145,6 +145,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Login With Google'**
   String get googleLogin;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'already Have Account?'**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @nameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameHint;
+
+  /// No description provided for @rePasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'RePassword'**
+  String get rePasswordHint;
 }
 
 class _AppLocalizationsDelegate

@@ -1,10 +1,13 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_evently/l10n/app_localizations.dart';
 import 'package:project_evently/ui/providers/language_provider.dart';
 import 'package:project_evently/ui/providers/theme_provider.dart';
 import 'package:project_evently/ui/utlils/app_assets.dart';
 import 'package:project_evently/ui/utlils/app_colors.dart';
+import 'package:project_evently/ui/utlils/app_routes.dart';
+import 'package:project_evently/ui/utlils/dialog_utills.dart';
 import 'package:project_evently/widgets/custom_button.dart';
 import 'package:project_evently/widgets/custom_text_field.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +21,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
    languageProvider = Provider.of(context);  /// لازم تعرف ال provider جواة ال build لازم
@@ -64,7 +69,8 @@ class _LoginState extends State<Login> {
   Widget buildEmailTextField() => CustomTextField(
     mode: themeProvider.mode,  /// هنا بقولوا علي حسب المود الي اختاروا
       hint: AppLocalizations.of(context)!.emailHint, ///دية كدا معانها اني بقولوا الايميل مكتوبة بالعربي والانجليزي يعني ونفس الكلام في الباقي
-      prefixIcon: AppSvg.icEmail
+      prefixIcon: AppSvg.icEmail,
+      controller: emailController,
   );
 
   Widget buildPasswordTextField() => CustomTextField(
@@ -72,6 +78,7 @@ class _LoginState extends State<Login> {
     hint: AppLocalizations.of(context)!.passwordHint,
     prefixIcon: AppSvg.icPassword,
     isPassword: true,
+    controller: passwordController,
   );
 
   Widget buildForgetPassword() => Container(
@@ -92,7 +99,29 @@ class _LoginState extends State<Login> {
         ),
   );
 
-  Widget buildLoginButton() => CustomButton(text: AppLocalizations.of(context)!.loginButton, onClick: (){},);
+  Widget buildLoginButton() => CustomButton(text: AppLocalizations.of(context)!.loginButton,
+    //TODO: Add Validation for email and password
+    onClick: () async {
+      showLoading(context);
+      try {
+        var userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+            email: emailController.text,
+            password: passwordController.text
+        );/// شلرح في الكشكول
+
+        Navigator.pop(context);///دا عشان يخفي الloading لان لما بتيجي تعمل الايميل والباسورد صح هيخفي الloading
+
+        Navigator.push(context, AppRoutes.home);///لو صح يفتح علي home screen
+
+      } on FirebaseAuthException catch (e) {
+        var message = e.message ?? "Something went wrong , Please try again later "; /// دية هتظهر لو كتبت الايميل والباسورد غلط اصلا الاتنين غلط هتظهر
+
+        Navigator.pop(context);///هنا بقا هيظهر لو كتبت الايميل والباسورد غلط او الايميل متكرر او كدا
+
+        showMessage(context, content: message, posButtonTitle: "ok");
+      }
+    },);
 
   Widget buildSignUpText() => Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -106,15 +135,20 @@ class _LoginState extends State<Login> {
           fontStyle: FontStyle.italic,
           ),
       ),
-      Text(AppLocalizations.of(context)!.createAccount, style: Theme
-          .of(context)
-          .textTheme
-          .labelMedium!
-          .copyWith(
-        fontStyle: FontStyle.italic, decoration: TextDecoration.underline,
-        decorationColor: AppColors.blue,
-      ),
+      InkWell(
+        onTap: (){
+          Navigator.push(context, AppRoutes.register);
+        },
+        child: Text(AppLocalizations.of(context)!.createAccount, style: Theme
+            .of(context)
+            .textTheme
+            .labelMedium!
+            .copyWith(
+          fontStyle: FontStyle.italic, decoration: TextDecoration.underline,
+          decorationColor: AppColors.blue,
         ),
+          ),
+      ),
 
 
     ],

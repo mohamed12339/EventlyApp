@@ -1,13 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:project_evently/firebase_options.dart';
 import 'package:project_evently/l10n/app_localizations.dart';
 import 'package:project_evently/ui/providers/language_provider.dart';
 import 'package:project_evently/ui/providers/theme_provider.dart';
-import 'package:project_evently/ui/screens/home/home.dart';
+import 'package:project_evently/ui/screens/login/login.dart';
+import 'package:project_evently/ui/screens/register/register.dart';
 import 'package:project_evently/ui/utlils/app_theme.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+ void main() async {
+   WidgetsFlutterBinding.ensureInitialized();   /// الجزء دا عشان نعرف ال firebase بس ومتنساش package firebase_core
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   // runApp(ChangeNotifierProvider( /// multi provider لا ممكن اعمل r بدل ما اعمل كل شوية واحدة change notifier
   //   create: (_) => ThemeProvider(),
   //   child: ChangeNotifierProvider(
@@ -50,7 +57,7 @@ class MyApp extends StatelessWidget {
         Locale('en'), // English
         Locale('ar'), // Spanish
       ],
-      home: const Home(),
+      home: const Login(),
 
     );
   }

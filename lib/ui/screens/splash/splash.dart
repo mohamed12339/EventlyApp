@@ -15,7 +15,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2 ) , (){ ///تكملة الشرح في الكشكول
-      Navigator.push(context, AppRoutes.login); //دية موجودة شرح في الكشكول وفي فايل ال appRoutes
+      Navigator.push(context, AppRoutes.introScreens); //دية موجودة شرح في الكشكول وفي فايل ال appRoutes
     });
   }
 

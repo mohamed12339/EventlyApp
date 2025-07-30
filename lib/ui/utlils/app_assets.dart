@@ -28,6 +28,12 @@ class AppAssets {
   static const String icEventDate = 'assets/images/ic_event_date.png';
   static const String icEventTime = 'assets/images/ic_event_time.png';
   static const String icLocation = 'assets/images/ic_location.png';
+  static const String screen1 = 'assets/images/screen_1_light.png';
+  static const String screen2 = 'assets/images/screen_2_light.png';
+  static const String screen3 = 'assets/images/screen_3_light.png';
+  static const String eventlyIntroScreen = 'assets/images/evently_introscreen.png';
+  static const String screen2Dark = 'assets/images/screen2_dark.png';
+  static const String screen3Dark = 'assets/images/screen3_dark.png';
 
 
 }

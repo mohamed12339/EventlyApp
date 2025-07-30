@@ -148,14 +148,19 @@ class _RegisterState extends State<Register> {
           fontStyle: FontStyle.italic,
         ),
       ),
-      Text(AppLocalizations.of(context)!.loginButton, style: Theme
-          .of(context)
-          .textTheme
-          .labelMedium!
-          .copyWith(
-        fontStyle: FontStyle.italic, decoration: TextDecoration.underline,
-        decorationColor: AppColors.blue,
-      ),
+      InkWell(
+        onTap: (){
+          Navigator.push(context, AppRoutes.login);
+        },
+        child: Text(AppLocalizations.of(context)!.loginButton, style: Theme
+            .of(context)
+            .textTheme
+            .labelMedium!
+            .copyWith(
+          fontStyle: FontStyle.italic, decoration: TextDecoration.underline,
+          decorationColor: AppColors.blue,
+        ),
+        ),
       ),
 
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_evently/ui/introscreens/intro_screens.dart';
+import 'package:project_evently/ui/introscreens/start_screen.dart';
 import 'package:project_evently/ui/screens/add_event/add_event.dart';
 import 'package:project_evently/ui/screens/home/home.dart';
 import 'package:project_evently/ui/screens/register/register.dart';
@@ -19,5 +21,12 @@ abstract final class AppRoutes{ ///شرح ال set and get في الكشكول
 
   static Route get addEvent {
     return MaterialPageRoute(builder: (_) => AddEvent());
+  }
+
+  static Route get introScreens {
+    return MaterialPageRoute(builder: (_) => IntroScreen());
+  }
+  static Route get startScreens {
+    return MaterialPageRoute(builder: (_) => StartScreen());
   }
 }

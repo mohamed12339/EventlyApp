@@ -34,6 +34,16 @@ class _LoginState extends State<Login> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Row(
+                  children: [
+                    IconButton(onPressed: (){
+                      Navigator.pop(context);
+                    },
+                        icon: Icon( Icons.arrow_back ,color: AppColors.blue,)
+                    ),
+                  ],
+                ),
+                SizedBox(height: 24),
                 buildAppLogo(context),
                 SizedBox(height: 24),
                 buildEmailTextField(),
@@ -50,9 +60,16 @@ class _LoginState extends State<Login> {
                 SizedBox(height: 24),
                 buildGoogleLogin(themeProvider.mode), /// علي حسب المود
                 SizedBox(height: 24),
-                buildLanguageToggle(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    buildLanguageToggle(themeProvider.mode),
+                    Spacer(),
+                    buildThemeToggle(themeProvider.mode),
+                  ],
+                ),
+
                 SizedBox(height: 24),
-                buildThemeToggle()
               ],
             ),
           ),
@@ -179,18 +196,28 @@ class _LoginState extends State<Login> {
 
   late LanguageProvider languageProvider ; ///هنا انا بعملها late عشان اعرفوا انا هاعملها زي الانا كاتبها عند build
   late ThemeProvider themeProvider ;
-  Widget buildLanguageToggle() => AnimatedToggleSwitch<String>.dual( ///دية معناها انها زي كونتينر كدا جواة ايكون بيتغير مثلا ما بينها وبتتحرك عشان تغير مثلا لغة
-     iconBuilder: (language)=> Image.asset(language == "ar" ? AppAssets.icEg : AppAssets.icUsa ), /// ودية بتحط فيها صورة بقا اي حاجة عايزها تتحرك وتبقا جواة كونتير وشبهة ليها يعني بس بتتحرك
-      current: languageProvider.currentLocale,  // ,ودية اللغة الاساسية كدا بقا
-      first: "ar", 
-      second: "en" ,
-     onChanged: (language){
-       languageProvider.changeLanguage(language) ;/// كدا انا بقولوا اللغة الاساسية تتغير بحسب اللغة الجديدة وكدا شغلنة الصورتين الصغييرين الي تحت ويغير اللغة لما تدوس عليها
+  Widget buildLanguageToggle(ThemeMode mode) => AnimatedToggleSwitch<String>.dual(///دية معناها انها زي كونتينر كدا جواة ايكون بيتغير مثلا ما بينها وبتتحرك عشان تغير مثلا لغة
+    style: ToggleStyle(
+      borderColor: AppColors.blue,
+      indicatorColor:  AppColors.white ,
+      backgroundColor:  mode == ThemeMode.light ? AppColors.white : AppColors.darkBlue,
+    ),
+    iconBuilder: (language)=> Image.asset(language == "ar" ? AppAssets.icEg : AppAssets.icUsa ), /// ودية بتحط فيها صورة بقا اي حاجة عايزها تتحرك وتبقا جواة كونتير وشبهة ليها يعني بس بتتحرك
+    current: languageProvider.currentLocale,  // ,ودية اللغة الاساسية كدا بقا
+    first: "ar",
+    second: "en" ,
+    onChanged: (language){
+      languageProvider.changeLanguage(language) ;/// كدا انا بقولوا اللغة الاساسية تتغير بحسب اللغة الجديدة وكدا شغلنة الصورتين الصغييرين الي تحت ويغير اللغة لما تدوس عليها
 
-     },
+    },
   );
 
-  Widget buildThemeToggle() => AnimatedToggleSwitch<ThemeMode>.dual( ///دية معناها انها زي كونتينر كدا جواة ايكون بيتغير مثلا ما بينها وبتتحرك عشان تغير مثلا المود
+  Widget buildThemeToggle(ThemeMode mode) => AnimatedToggleSwitch<ThemeMode>.dual(///دية معناها انها زي كونتينر كدا جواة ايكون بيتغير مثلا ما بينها وبتتحرك عشان تغير مثلا المود
+    style: ToggleStyle(
+      borderColor: AppColors.blue,
+      indicatorColor:  AppColors.white ,
+      backgroundColor:  mode == ThemeMode.light ? AppColors.white : AppColors.darkBlue,
+    ),
     current:  themeProvider.mode ,  // ,ودية اللغة الاساسية كدا بقا
     iconBuilder: (mode)=>
         Icon(mode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode),  /// ودية بتحط فيها ايكون بقا اي حاجة عايزها تتحرك وتبقا جواة حاجة شبة الكونتير وشبهة ليها يعني بس بتتحرك جواها بس لما تدوس عليها

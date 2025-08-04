@@ -1,5 +1,5 @@
 class AppAssets {
-  static const String birthdayClub = 'assets/images/Birthday_club.png';
+  static const String eventBirthdayClub = 'assets/images/Birthday_club.png';
   static const String appHorizontalLogo = 'assets/images/app_horizontal_logo.png';
   static const String appVerticalLogo = 'assets/images/app_vertical_logo.png';
   static const String icHome = 'assets/images/home.png';
@@ -34,8 +34,20 @@ class AppAssets {
   static const String eventlyIntroScreen = 'assets/images/evently_introscreen.png';
   static const String screen2Dark = 'assets/images/screen2_dark.png';
   static const String screen3Dark = 'assets/images/screen3_dark.png';
-
-
+  static const String eventBookingClub = 'assets/images/event_booking_club.png';
+  static const String eventEating = 'assets/images/event_eating.png';
+  static const String eventExhibition = 'assets/images/event_Exhibition.png';
+  static const String eventGaming = 'assets/images/event_gaming.png';
+  static const String eventHoliday = 'assets/images/event_holiday.png';
+  static const String eventMeeting = 'assets/images/event_meeting.png';
+  static const String eventSport = 'assets/images/event_sport.png';
+  static const String eventWorkshop = 'assets/images/event_workshop.png';
+  static const String icGaming = 'assets/images/ic_gaming.png';
+  static const String icEating = 'assets/images/ic_eating.png';
+  static const String icExhibition = 'assets/images/ic_Exhibition.png';
+  static const String icMeeting = 'assets/images/ic_meeting.png';
+  static const String icWorkshop = 'assets/images/ic_Workshop.png';
+  static const String icHoliday = 'assets/images/ic_holiday.png';
 }
 
 class AppSvg {

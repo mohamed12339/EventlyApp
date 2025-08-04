@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:project_evently/data/firestore_utilts.dart';
 import 'package:project_evently/model/category_dm.dart';
-import 'package:project_evently/model/event_dm.dart';
+import 'package:project_evently/model/user_dm.dart';
 import 'package:project_evently/ui/utlils/app_assets.dart';
 import 'package:project_evently/ui/utlils/app_colors.dart';
 import 'package:project_evently/widgets/categories_tabs.dart';
 import 'package:project_evently/widgets/event_widget.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
 
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+  CategoryDm selectedCategory = CategoryDm.homeCategories[0];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -50,7 +57,7 @@ class HomeTab extends StatelessWidget {
             style: TextStyle(fontSize: 14, color: AppColors.white),
           ),
           Text(
-            "Mohamed Magdy",
+            UserDm.currentUser!.name, /// كدا بقولوا استخدم الاسم الي عمل اكونت بقا خلاص
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
@@ -79,7 +86,10 @@ class HomeTab extends StatelessWidget {
 
   buildCategoriesTabs() => CategoriesTabs(
       categories: CategoryDm.homeCategories,
-      onTabSelected: (category){},
+      onTabSelected: (category){
+        selectedCategory = category ;  /// لما المستخدم يدوس علي نوع مثلا يظهر الحاجة بتاعتوا
+        setState(() {});
+      },
       selectedTabBg: AppColors.white,
       unselectedTabBg: AppColors.blue,
       selectedTabTextColor: AppColors.blue,
@@ -87,18 +97,26 @@ class HomeTab extends StatelessWidget {
 
   );
 
-  buildEventList() =>
-      ListView.builder(
-        itemCount: 20,
-        itemBuilder: (context, index) =>
-            EventWidget(eventDm: EventDm(title: "This is a Birthday Party",
-                image: AppAssets.birthdayClub,
-                isFavorite: false,
-                date: " 21 \n nov ",
-                description: "description",
-                time: "time",
-                lat: 0,
-                lng: 0)),
-
-      );
+  buildEventList() => FutureBuilder(  /// دية معملولة مخصوص عشان ترسمللك ال future اي بقا future انتا عاملوا في 3 حالات حالة الfuture لسة بيحمل داتا وحالة انة ضرب ايرور وحالة انو انا  بيجيب داتا
+      future: getAllEventsFromFirestore(),
+      builder: (context , snapshot){  /// طيب هنا في المفروض 3 return دول بتعملوا if condition وهما بيتحط فيهم 3 حالات بتوع الفيوتشير
+        if(snapshot.hasError){
+          return Center(child: Text(snapshot.error.toString()));
+        }else if(snapshot.hasData){ /// في حالة الداتا حملت تمم خلاص هارسم ليستة ال events بس
+          var events = snapshot.data!;
+          if(selectedCategory.title != "All"){   /// هنا بالمعني لو داس حاجة بدل ال all يبقا  يظهر الحاجة بتاعتوا بس طب لو داس all يظهر كل حاجة
+            events =  events.where((event){ /// هنا ان where بترجع ليستة جديدة فا لازم اعرفوا ان دية ليستة ال event
+              return event.categoryId == selectedCategory.title ; /// لازم لما مثلا اي حاجة من الي موجودين جنب all يظهر الحاجة بتاعتوا بس
+            }).toList();
+          }
+          return ListView.builder(
+            itemCount: events.length ,
+            itemBuilder: (context , index ){
+              return EventWidget(eventDm: events[index]); /// هنا بقا بقولوا اعملها بيديزين ال eventwidget بس بعتلوا الداتا بقا الي هيا في سطر 98
+            });
+        }else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+  );
 }

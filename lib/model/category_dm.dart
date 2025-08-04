@@ -13,61 +13,106 @@ class CategoryDm {
     CategoryDm(
       image: AppAssets.icAll,
       title: "All",
-      imageBg: AppAssets.birthdayClub,
+      imageBg: AppAssets.appHorizontalLogo,
     ),
     CategoryDm(
       image: AppAssets.icSport,
       title: "Sport",
-      imageBg: AppAssets.birthdayClub,
+      imageBg: AppAssets.eventSport,
     ),
     CategoryDm(
       image: AppAssets.icBirthday,
       title: "Birthday",
-      imageBg: AppAssets.birthdayClub,
+      imageBg: AppAssets.eventBirthdayClub,
     ),
     CategoryDm(
-      image: AppAssets.icSport,
+      image: AppAssets.icMeeting,
       title: "Meeting",
-      imageBg: AppAssets.birthdayClub,
+      imageBg: AppAssets.eventMeeting,
     ),
     CategoryDm(
-      image: AppAssets.icHome,
+      image: AppAssets.icHoliday,
       title: "Holiday",
-      imageBg: AppAssets.birthdayClub,
+      imageBg: AppAssets.eventHoliday,
     ),
     CategoryDm(
       image: AppAssets.icBookClub,
       title: "BookingClub",
-      imageBg: AppAssets.birthdayClub,
+      imageBg: AppAssets.eventBookingClub,
+    ),
+    CategoryDm(
+      image: AppAssets.icEating,
+      title: "Eating",
+      imageBg: AppAssets.eventEating,
+    ),
+    CategoryDm(
+      image: AppAssets.icExhibition,
+      title: "Exhibition",
+      imageBg: AppAssets.eventExhibition,
+    ),
+    CategoryDm(
+      image: AppAssets.icGaming,
+      title: "Gaming",
+      imageBg: AppAssets.eventGaming,
+    ),
+    CategoryDm(
+      image: AppAssets.icWorkshop,
+      title: "WorkShop",
+      imageBg: AppAssets.eventWorkshop,
     ),
   ];
   static List<CategoryDm> createEventsCategories = [
-
     CategoryDm(
       image: AppAssets.icBookClub,
       title: "BookingClub",
-      imageBg: AppAssets.birthdayClub,
+      imageBg: AppAssets.eventBookingClub,
     ),
     CategoryDm(
       image: AppAssets.icSport,
       title: "Sport",
-      imageBg: AppAssets.birthdayClub,
+      imageBg: AppAssets.eventSport,
     ),
     CategoryDm(
       image: AppAssets.icBirthday,
       title: "Birthday",
-      imageBg: AppAssets.birthdayClub,
+      imageBg: AppAssets.eventBirthdayClub,
     ),
     CategoryDm(
-      image: AppAssets.icSport,
+      image: AppAssets.icMeeting,
       title: "Meeting",
-      imageBg: AppAssets.birthdayClub,
+      imageBg: AppAssets.eventMeeting,
     ),
     CategoryDm(
-      image: AppAssets.icHome,
+      image: AppAssets.icHoliday,
       title: "Holiday",
-      imageBg: AppAssets.birthdayClub,
+      imageBg: AppAssets.eventHoliday,
     ),
-
+    CategoryDm(
+      image: AppAssets.icEating,
+      title: "Eating",
+      imageBg: AppAssets.eventEating,
+    ),
+    CategoryDm(
+      image: AppAssets.icExhibition,
+      title: "Exhibition",
+      imageBg: AppAssets.eventExhibition,
+    ),
+    CategoryDm(
+      image: AppAssets.icGaming,
+      title: "Gaming",
+      imageBg: AppAssets.eventGaming,
+    ),
+    CategoryDm(
+      image: AppAssets.icWorkshop,
+      title: "WorkShop",
+      imageBg: AppAssets.eventWorkshop,
+    ),
   ];
+
+  static CategoryDm fromTitle (String title){
+    return homeCategories.firstWhere((category){  /// دية زي اللوب
+      /// وبقولوا برضوا لو ان title الانا بعتوا بيساوي اي category من دول خلاص اظهروا صورتوا
+     return title == category.title ;
+    });
+  }
 }

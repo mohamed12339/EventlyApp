@@ -1,7 +1,9 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project_evently/data/firestore_utilts.dart';
 import 'package:project_evently/l10n/app_localizations.dart';
+import 'package:project_evently/model/user_dm.dart';
 import 'package:project_evently/ui/providers/language_provider.dart';
 import 'package:project_evently/ui/providers/theme_provider.dart';
 import 'package:project_evently/ui/utlils/app_assets.dart';
@@ -118,11 +120,23 @@ class _RegisterState extends State<Register> {
         onClick: () async {
           showLoading(context);
           try{
-          var userCredential =   await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text); /// شلرح في الكشكول
+          var userCredential =   await FirebaseAuth.instance.createUserWithEmailAndPassword(
+              email: emailController.text,
+              password: passwordController.text
+          ); /// شلرح في الكشكول
 
+            UserDm.currentUser = UserDm(
+                id: userCredential.user!.uid, /// كدا بقا انا بقولوا هات uid الي هوا id  من userCredential
+                name: nameController.text,
+                email: emailController.text,
+                favoriteEvents: [],
+            );
+            addUserToFirestore(UserDm.currentUser!); /// كدا بقا بقولوا خد ال user ضيفوا في ال firestore
 
             Navigator.pop(context); ///دا عشان يخفي الloading لان لما بتيجي تعمل الايميل والباسورد صح هيخفي الloading
-            Navigator.push(context, AppRoutes.login); ///لو صح يفتح علي LoginScreen عشان يكتب الاكونت هناك ويفتح علي ال home screen
+
+            Navigator.push(context, AppRoutes.home); ///لو عمل اكونت صح يفتح علي  home screen
+
           }on FirebaseAuthException catch(e){
             var message = "Something went wrong , Please try again later " ; /// دية هتظهر لو كتبت الايميل والباسورد غلط اصلا الاتنين غلط هتظهر
             if (e.code == 'weak-password') {

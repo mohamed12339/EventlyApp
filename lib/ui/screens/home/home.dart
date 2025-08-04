@@ -18,8 +18,8 @@ class _HomeState extends State<Home> {
   int currentIndex = 0;/// هنا انا عملت فريابل عشان لما النستخدم يختار ايكون
   List<Widget> tabs = [
     HomeTab(),
-    FavoriteTab(),
     MapTab(),
+    FavoriteTab(),
     ProfileTab(),
   ];
 

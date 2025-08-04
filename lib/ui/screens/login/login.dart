@@ -1,7 +1,9 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project_evently/data/firestore_utilts.dart';
 import 'package:project_evently/l10n/app_localizations.dart';
+import 'package:project_evently/model/user_dm.dart';
 import 'package:project_evently/ui/providers/language_provider.dart';
 import 'package:project_evently/ui/providers/theme_provider.dart';
 import 'package:project_evently/ui/utlils/app_assets.dart';
@@ -117,15 +119,16 @@ class _LoginState extends State<Login> {
   );
 
   Widget buildLoginButton() => CustomButton(text: AppLocalizations.of(context)!.loginButton,
-    //TODO: Add Validation for email and password
     onClick: () async {
       showLoading(context);
       try {
-        var userCredential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(
+        var userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: emailController.text,
             password: passwordController.text
         );/// شلرح في الكشكول
+
+        UserDm.currentUser = await getFormUserFirestore(userCredential.user!.uid); /// كدا بقا معايا الiduser كمان من ال login
+
 
         Navigator.pop(context);///دا عشان يخفي الloading لان لما بتيجي تعمل الايميل والباسورد صح هيخفي الloading
 

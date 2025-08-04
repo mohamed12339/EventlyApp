@@ -17,8 +17,8 @@ class IntroScreen extends StatefulWidget {
 }
 
 class IntroScreenState extends State<IntroScreen> {
-  final PageController _pageController = PageController();
-  int _currentPage = 0;
+  final PageController pageController = PageController();
+  int currentPage = 0;
   late ThemeProvider themeProvider;
 
   @override
@@ -59,11 +59,11 @@ class IntroScreenState extends State<IntroScreen> {
             SizedBox(height: 20),
             Expanded(
               child: PageView.builder(
-                controller: _pageController,
+                controller: pageController,
                 itemCount: introData.length,
                 onPageChanged: (int page) {
                   setState(() {
-                    _currentPage = page;
+                    currentPage = page;
                   });
                 },
 
@@ -105,9 +105,9 @@ class IntroScreenState extends State<IntroScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ElevatedButton(
-                    onPressed: _currentPage > 0
+                    onPressed: currentPage > 0
                         ? () {
-                      _pageController.previousPage(
+                      pageController.previousPage(
                         duration: Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                       );
@@ -128,7 +128,7 @@ class IntroScreenState extends State<IntroScreen> {
                         height: 8,
                         decoration: BoxDecoration(
                           shape: BoxShape.rectangle,
-                          color: _currentPage == index
+                          color: currentPage == index
                               ? AppColors.blue
                               :  AppColors.black,
                         ),
@@ -136,9 +136,9 @@ class IntroScreenState extends State<IntroScreen> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: _currentPage < introData.length - 1
+                    onPressed: currentPage < introData.length - 1
                         ? () {
-                      _pageController.nextPage(
+                      pageController.nextPage(
                         duration: Duration(milliseconds: 300),
                         curve: Curves.easeInOut,
                       );

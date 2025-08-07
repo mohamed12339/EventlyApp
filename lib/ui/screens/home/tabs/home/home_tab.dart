@@ -16,6 +16,8 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   CategoryDm selectedCategory = CategoryDm.homeCategories[0];
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -97,26 +99,50 @@ class _HomeTabState extends State<HomeTab> {
 
   );
 
-  buildEventList() => FutureBuilder(  /// دية معملولة مخصوص عشان ترسمللك ال future اي بقا future انتا عاملوا في 3 حالات حالة الfuture لسة بيحمل داتا وحالة انة ضرب ايرور وحالة انو انا  بيجيب داتا
-      future: getAllEventsFromFirestore(),
-      builder: (context , snapshot){  /// طيب هنا في المفروض 3 return دول بتعملوا if condition وهما بيتحط فيهم 3 حالات بتوع الفيوتشير
-        if(snapshot.hasError){
-          return Center(child: Text(snapshot.error.toString()));
-        }else if(snapshot.hasData){ /// في حالة الداتا حملت تمم خلاص هارسم ليستة ال events بس
-          var events = snapshot.data!;
-          if(selectedCategory.title != "All"){   /// هنا بالمعني لو داس حاجة بدل ال all يبقا  يظهر الحاجة بتاعتوا بس طب لو داس all يظهر كل حاجة
-            events =  events.where((event){ /// هنا ان where بترجع ليستة جديدة فا لازم اعرفوا ان دية ليستة ال event
-              return event.categoryId == selectedCategory.title ; /// لازم لما مثلا اي حاجة من الي موجودين جنب all يظهر الحاجة بتاعتوا بس
-            }).toList();
-          }
-          return ListView.builder(
+  buildEventList() => StreamBuilder(   /// دية معملولة مخصوص عشان ترسمللك ال stream اي بقا stream انتا عاملوا في 3 حالات حالة ال stream لسة بيحمل داتا وحالة انة ضرب ايرور وحالة انو انا  بيجيب داتا وكمان هنا ال stream بيتعمل هنا listen لوحدها بس ما اعمللها انا بايدي بس
+    stream: getAllEventsFromFirestore(),
+    builder: (context , snapshot){  /// طيب هنا في المفروض 3 return دول بتعملوا if condition وهما بيتحط فيهم 3 حالات بتوع الفيوتشير
+      if(snapshot.hasError){
+        return Center(child: Text(snapshot.error.toString()));
+      }else if(snapshot.hasData){ /// في حالة الداتا حملت تمم خلاص هارسم ليستة ال events بس
+        var events = snapshot.data!;
+        if(selectedCategory.title != "All"){   /// هنا بالمعني لو داس حاجة بدل ال all يبقا  يظهر الحاجة بتاعتوا بس طب لو داس all يظهر كل حاجة
+          events =  events.where((event){ /// هنا ان where بترجع ليستة جديدة فا لازم اعرفوا ان دية ليستة ال event
+            return event.categoryId == selectedCategory.title ; /// لازم لما مثلا اي حاجة من الي موجودين جنب all يظهر الحاجة بتاعتوا بس
+          }).toList();
+        }
+        return ListView.builder(
             itemCount: events.length ,
             itemBuilder: (context , index ){
               return EventWidget(eventDm: events[index]); /// هنا بقا بقولوا اعملها بيديزين ال eventwidget بس بعتلوا الداتا بقا الي هيا في سطر 98
             });
-        }else {
-          return Center(child: CircularProgressIndicator());
-        }
-      },
+      }else {
+        return Center(child: CircularProgressIndicator());
+      }
+    },
   );
 }
+
+/// هنا كنت عاملها future بس حولتها ل stream عشان الايفينات تيجي في نفس الثانية وكان ال الgetAllEventsFromFirestore بقيت من stream فا مينفعس تتحط في future
+// buildEventList() => FutureBuilder(  /// دية معملولة مخصوص عشان ترسمللك ال future اي بقا future انتا عاملوا في 3 حالات حالة الfuture لسة بيحمل داتا وحالة انة ضرب ايرور وحالة انو انا  بيجيب داتا
+//   future: getAllEventsFromFirestore(),
+//   builder: (context , snapshot){  /// طيب هنا في المفروض 3 return دول بتعملوا if condition وهما بيتحط فيهم 3 حالات بتوع الفيوتشير
+//     if(snapshot.hasError){
+//       return Center(child: Text(snapshot.error.toString()));
+//     }else if(snapshot.hasData){ /// في حالة الداتا حملت تمم خلاص هارسم ليستة ال events بس
+//       var events = snapshot.data!;
+//       if(selectedCategory.title != "All"){   /// هنا بالمعني لو داس حاجة بدل ال all يبقا  يظهر الحاجة بتاعتوا بس طب لو داس all يظهر كل حاجة
+//         events =  events.where((event){ /// هنا ان where بترجع ليستة جديدة فا لازم اعرفوا ان دية ليستة ال event
+//           return event.categoryId == selectedCategory.title ; /// لازم لما مثلا اي حاجة من الي موجودين جنب all يظهر الحاجة بتاعتوا بس
+//         }).toList();
+//       }
+//       return ListView.builder(
+//           itemCount: events.length ,
+//           itemBuilder: (context , index ){
+//             return EventWidget(eventDm: events[index]); /// هنا بقا بقولوا اعملها بيديزين ال eventwidget بس بعتلوا الداتا بقا الي هيا في سطر 98
+//           });
+//     }else {
+//       return Center(child: CircularProgressIndicator());
+//     }
+//   },
+// );

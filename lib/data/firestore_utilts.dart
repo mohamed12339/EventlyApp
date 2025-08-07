@@ -81,16 +81,20 @@ Future<UserDm> getFormUserFirestore(String userId) async {
  }
 
 
-Future<List<EventDm>> getAllEventsFromFirestore() async {
+Stream<List<EventDm>> getAllEventsFromFirestore(){ /// هنا async* : دية بتبقا بتتعمل مع ال stream ولازم ترجع stream.listen او حاجة حاجة تبقا stream مش ال future  تمم واستخدمنا stream هنا عشان ان يبقا في نفس الوقت الي اتعمل فية ايفنت يظهر علي طول بس شيلتها
   var eventsCollection = FirebaseFirestore.instance.collection(EventDm.collectionName); /// 1. حددنا الـ Collection
 
-  var querySnapshot = await eventsCollection.get(); /// 2. طلبنا كل الايفينتات من ال (documents)
+  Stream<QuerySnapshot<Map<String , dynamic>>> stream =  eventsCollection.snapshots();  /// 2. طلبنا كل الايفينتات من ال (documents) بس من stream عشان تيجي علي طول في نفس الثانية
 
-  List<EventDm> events = querySnapshot.docs.map((docSnapshot){ /// 3. بدأنا نحول كل doc
-    var json = docSnapshot.data(); /// 4. جبنا البيانات من documents كـ Map
-    return EventDm.fromJson(json); /// 5. حولناها إلى  EventDm
-  }).toList(); /// 6. حولنا الناتج إلى List كاملة
-  return events ;
+  return stream.map((querySnapshot){
+    List<EventDm> events = querySnapshot.docs.map((docSnapshot){ /// 3. بدأنا نحول كل doc
+      var json = docSnapshot.data(); /// 4. جبنا البيانات من documents كـ Map
+      return EventDm.fromJson(json); /// 5. حولناها إلى  EventDm
+    }).toList(); /// 6. حولنا الناتج إلى List كاملة
+    return events ;
+  });
+
+  // yield events ;   /// هنا yield هيا هيا return بالظبط بس بتتسخدم بردو مع ال stream
 }
 
 

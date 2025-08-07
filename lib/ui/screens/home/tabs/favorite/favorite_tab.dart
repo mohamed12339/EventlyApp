@@ -17,7 +17,7 @@ class _FavoriteTabState extends State<FavoriteTab> {
     );
   }
 
-  buildEventsList() => FutureBuilder(
+  buildEventsList() => FutureBuilder( /// هنا عشان نخلي المستخدم لما يدوس علي اي event يبقا يتحط في ال favorite بس 
       future: getFavoriteEvents(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {

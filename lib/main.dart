@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -9,7 +11,15 @@ import 'package:project_evently/ui/screens/login/login.dart';
 import 'package:project_evently/ui/utlils/app_theme.dart';
 import 'package:provider/provider.dart';
 
- void main() async {
+// StreamController<int> streamController = StreamController();  ///  دية لحل مشكلة ان لو حد عمل ايفيت جديد يظهر علي طول مش لازم ت run ال app تاني هنا بقولوا انا عندي int جديد جية
+// Stream integersStream = streamController.stream ; ///  وهنا ال stream زات نفسوا هوا الي بعرف والي شايل الليستة الي بتتغير بس
+// var counter =  1 ;
+void main() async {
+// Timer.periodic(Duration(seconds: 1), (_){ دا عشان اقولوا كل ثانية ضيف مثلا يعني ايفينت الجديد الي عملوا المستخدم علي طول بس دا مثال علية
+//   counter++ ;
+//   streamController.add(counter);
+// });
+
    WidgetsFlutterBinding.ensureInitialized();   /// الجزء دا عشان نعرف ال firebase بس ومتنساش package firebase_core
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

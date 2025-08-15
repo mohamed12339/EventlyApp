@@ -11,7 +11,8 @@ import 'package:project_evently/widgets/custom_button.dart';
 import 'package:project_evently/widgets/custom_text_field.dart';
 
 class AddEvent extends StatefulWidget {
-  const AddEvent({super.key});
+  final EventDm ? eventToEdit ;
+  const AddEvent({super.key, this.eventToEdit});
 
   @override
   State<AddEvent> createState() => _AddEventState();
@@ -23,6 +24,25 @@ class _AddEventState extends State<AddEvent> {
   CategoryDm selectedCategory = CategoryDm.createEventsCategories[0]; /// دية انا عملتها لية عشان اعرف المستخدم داس علي sport  وكدا او داس علي حاجة تانية  وكدا كدا  هيا بدايتها 0 عشان دا اول حاجة في اللسيت
   DateTime selectedDate = DateTime.now(); /// what is DateTime : هيا هيا انما  (داتا تيم) بتشيل ايام وشهور وسنين وكلمة (ناو) دية معناها اني بقولوا هات الوقت بتاع دلوقتي يعني لما تيجي تفتح يكون جايبللك من يوم النهارة والوقت دلوقتي   duration بس الاختلاف ان هنا كان بيشيل وقت وثواني وساعات
   TimeOfDay selectedTime = TimeOfDay.now() ;  /// دا بيبقا شايل وقت زي 9.30 am or pm كدا مثلا لو شيلت (ناو) هتلاقي حاجة جواة ساعة ودقيقة
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.eventToEdit != null) {
+      // لو تعديل
+      titleController.text = widget.eventToEdit!.title;
+      descriptionController.text = widget.eventToEdit!.description;
+      selectedCategory = CategoryDm.createEventsCategories.firstWhere(
+            (cat) => cat.title == widget.eventToEdit!.categoryId,
+        orElse: () => CategoryDm.createEventsCategories[0],
+      );
+      selectedDate = widget.eventToEdit!.date;
+      selectedTime = TimeOfDay(
+        hour: selectedDate.hour,
+        minute: selectedDate.minute,
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,7 +175,7 @@ class _AddEventState extends State<AddEvent> {
   buildEventLocation()  => Container();
 
   buildAddEventButton()  => CustomButton(
-      text: "Add Event",
+      text: widget.eventToEdit==null ? "Add Event" : "Update Event",
       onClick: ()async{
     showLoading(context);
     selectedDate = DateTime( /// انا هنا عملت ان ال firebase معندهاش ال timeofday فا خزنت الوقت جواة ال datetime بس لان هوا ساعة ودقيقة
@@ -166,14 +186,19 @@ class _AddEventState extends State<AddEvent> {
       selectedTime.minute,
     );
     EventDm eventDm = EventDm(
-        id: "", // دا كدا كدا خلاص ال firestore بتعملوا فا مش لازم
+        id: widget.eventToEdit?.id ?? "", // دا كدا كدا خلاص ال firestore بتعملوا فا مش لازم
         title: titleController.text,
         categoryId: selectedCategory.title,
         date: selectedDate,
         description: descriptionController.text,
        ownerId: UserDm.currentUser!.id,
     );
-   await addEventToFirestore(eventDm);
+    if(widget.eventToEdit ==null){
+      await addEventToFirestore(eventDm);
+    }else{
+      await updateEventInFirestore(eventDm);
+    }
+    setState(() {});
    Navigator.pop(context); // to hide showLoading only .
    Navigator.pop(context); // close screen addEvent only .
   });

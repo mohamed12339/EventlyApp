@@ -48,6 +48,7 @@ class AppAssets {
   static const String icMeeting = 'assets/images/ic_meeting.png';
   static const String icWorkshop = 'assets/images/ic_Workshop.png';
   static const String icHoliday = 'assets/images/ic_holiday.png';
+  static const String icEventDetailsDate = 'assets/images/ic_eventdetailts_date.png';
 }
 
 class AppSvg {

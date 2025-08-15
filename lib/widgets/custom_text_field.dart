@@ -29,6 +29,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(///ازاي عرف الborder والحاجات التانبة الي موجود في file apptheme عشان عرفتهم في ال main dart
+      style: TextStyle(
+        color: widget.mode == ThemeMode.light ? AppColors.black : AppColors.white
+      ),
       controller: widget.controller,
       minLines: widget.minLines,
       maxLines: widget.isPassword ? 1 : widget.minLines + 1 ,  /// حاجة مهمة عشان هتضرب ايرور بعد لما تعمل min lines
@@ -47,6 +50,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             },
             child: Icon( obscureText ? Icons.visibility_off : Icons.remove_red_eye , color: widget.mode == ThemeMode.light ? AppColors.gray : AppColors.white,) , ) : null, ///هنا بقولوا لو انتا مخفي او مش كات حاجة  اظهر ايكون العين الي عليها شرطة ايلس : ظاهر خلي العين من غير شرطة  وانتا بتدوس عليها
         hintText: widget.hint,
+
 
       ),
       obscureText: widget.isPassword ? obscureText : false, /// لو كاتب حاجة هتبقا مش ظاهرة وانتا بتكتب  ودا بعيد عن ايكون العين لو انتا باسورد خليك obscure الي هيا مخفي ايلس : يبقا false   

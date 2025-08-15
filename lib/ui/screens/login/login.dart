@@ -192,7 +192,33 @@ class _LoginState extends State<Login> {
   Widget buildGoogleLogin(ThemeMode mode) =>
       CustomButton(text: AppLocalizations.of(context)!.googleLogin,
          icon:Image.asset(AppAssets.icGoogle) ,
-        onClick: () {},
+        onClick: () async {
+          try {
+            showLoading(context);
+
+            final userCredential = await signInWithGoogle();
+            final user = userCredential.user!;
+
+            //  دية لو  بيانات المستخدم لو مش موجودة اكتبها
+            await createUserInFirestoreIfNotExists(
+                UserDm.currentUser = UserDm(
+                  id: userCredential.user!.uid,
+                  name: userCredential.user!.displayName ?? '',
+                  email: emailController.text,
+                  favoriteEvents: [],
+                )
+            );
+
+            // دية بقا نخزنها بقا خلاص  البيانات وتخزينها في الموديل
+            UserDm.currentUser = await getFormUserFirestore(user.uid);
+
+            Navigator.pop(context);
+            Navigator.pushReplacement(context, AppRoutes.home);
+          }  catch(e) {
+            Navigator.pop(context);
+            showMessage(context, content: e.toString() , posButtonTitle: "OK");
+          }
+        },
         backgroundColor: mode == ThemeMode.light ? AppColors.white : Colors.transparent,///هنا بقولوا يتغير علي حسب المود
         textColor: AppColors.blue,);
 

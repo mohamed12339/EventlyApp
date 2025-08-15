@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
     backgroundColor: AppColors.blue,
       shape: StadiumBorder(side: BorderSide(color: Colors.white)),  /// دية عشان ال floating يبقا مدور بس وال side حوالينها ابيض كدا
       onPressed: (){
-      Navigator.push(context, AppRoutes.addEvent); /// لما تيجي تدوس علي علامة الزائد تخش علي دية بس
+      Navigator.push(context, AppRoutes.addEvent(null)); /// لما تيجي تدوس علي علامة الزائد تخش علي دية بس
       },
       child: Icon(Icons.add)
   );

@@ -1,5 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project_evently/model/event_dm.dart';
 import 'package:project_evently/model/user_dm.dart';
 
@@ -128,4 +130,59 @@ Future removeEventFromFavorite(String eventId)async{
   await currentUserDoc.update({"favoriteEvents":FieldValue.arrayRemove([eventId])});  /// دية معانها FieldValue.arrayRemove اني بشيل حاجة وزي ما انا عامل انا بشيل من الليستة بتاعة ال  (eventId)
   UserDm.currentUser!.favoriteEvents.remove(eventId);
 
+}
+
+/// دا عشان اعرف ال google لو هيعمل اكونت ب جوجل علي طول تمم ولازم تنزل ال باجكدج جوجل و تعمل firbase وتشتغل بقا
+Future<UserCredential> signInWithGoogle() async {
+  // تهيئة GoogleSignIn مع Server Client ID
+  await GoogleSignIn.instance.initialize(
+    clientId: "301746603364-50270uhj52lc0ftrronu6ms6rc0rgooi.apps.googleusercontent.com",
+  );
+  // تسجيل الدخول
+  final googleUser = await GoogleSignIn.instance.authenticate();
+
+  // جلب الـ idToken
+  final googleAuth = await googleUser.authentication;
+
+  // إنشاء Credential لـ Firebase
+  final credential = GoogleAuthProvider.credential(
+    idToken: googleAuth.idToken,
+  );
+
+  // تسجيل الدخول في Firebase
+  return await FirebaseAuth.instance.signInWithCredential(credential);
+}
+
+
+Future<void> createUserInFirestoreIfNotExists(UserDm user) async { /// دالة غير مُرجِعة (void) بتشتغل بشكل غير متزامن async وتستقبل كائن UserDm
+  final docRef = FirebaseFirestore.instance   /// نجيب إنستانس من Firestore
+      .collection(UserDm.collectionName)      /// نحدد الـ collection بإسمه (users )
+      .doc(user.id);     /// نحدد الـ document المطلوب (بـ id المستخدم) ونرجّع DocumentReference
+
+  final snapshot = await docRef.get();    /// نقرأ الـ document من السيرفر ونجيب حالته/بياناته (DocumentSnapshot)
+  if (!snapshot.exists) {    /// لو الـ document مش موجود أصلاً (مستخدم جديد)
+    final newUser = UserDm(    /// نكوّن كائن مستخدم جديد من الموديل UserDm
+      id: user.id,      /// نعيّن الـ id من المستخدم المُمرَّر
+      name: user.name,    /// نعيّن الاسم
+      email: user.email,      /// نعيّن الإيميل
+      favoriteEvents: [],   /// نبتدي قائمة المفضّلة فاضية
+    );
+
+    await docRef.set(newUser.toJson());  /// نخزن بيانات المستخدم في الـ document باستخدام toJson() (بتحول الكائن لـ Map)
+  }        /// نهاية الدالة  /// نهاية شرط "لو غير موجود"
+}
+
+Future<void> updateEventInFirestore(EventDm event) async { /// دا لو عايز تغير في الايفينت الانتا عملتوا
+  await FirebaseFirestore.instance
+      .collection(EventDm.collectionName)
+      .doc(event.id) // نفس الحدث
+      .update(event.toJson());
+}
+
+
+Future<void> deleteEventFromFirestore(String eventId) async { /// دا يمسح الايفينت
+  await FirebaseFirestore.instance
+      .collection(EventDm.collectionName)
+      .doc(eventId)
+      .delete();
 }

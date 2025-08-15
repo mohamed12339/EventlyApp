@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:project_evently/model/event_dm.dart';
 import 'package:project_evently/ui/introscreens/intro_screens.dart';
 import 'package:project_evently/ui/introscreens/start_screen.dart';
 import 'package:project_evently/ui/screens/add_event/add_event.dart';
 import 'package:project_evently/ui/screens/home/home.dart';
 import 'package:project_evently/ui/screens/register/register.dart';
+import 'package:project_evently/widgets/event_details.dart';
 import '../screens/login/login.dart';
 
 abstract final class AppRoutes{ ///شرح ال set and get في الكشكول
@@ -19,8 +21,8 @@ abstract final class AppRoutes{ ///شرح ال set and get في الكشكول
     return MaterialPageRoute(builder: (_) => Register());
   }
 
-  static Route get addEvent {
-    return MaterialPageRoute(builder: (_) => AddEvent());
+  static Route  addEvent(EventDm? eventToEdit) {
+    return MaterialPageRoute(builder: (_) => AddEvent(eventToEdit: eventToEdit ,));
   }
 
   static Route get introScreens {
@@ -28,5 +30,8 @@ abstract final class AppRoutes{ ///شرح ال set and get في الكشكول
   }
   static Route get startScreens {
     return MaterialPageRoute(builder: (_) => StartScreen());
+  }
+  static Route  eventDetails(EventDm events) {
+    return MaterialPageRoute(builder: (_) => EventDetails(eventDm: events,));
   }
 }

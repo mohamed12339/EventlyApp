@@ -1,14 +1,16 @@
-import 'dart:async';
+
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:project_evently/firebase_options.dart';
 import 'package:project_evently/l10n/app_localizations.dart';
+import 'package:project_evently/ui/introscreens/start_screen.dart';
 import 'package:project_evently/ui/providers/language_provider.dart';
 import 'package:project_evently/ui/providers/theme_provider.dart';
 import 'package:project_evently/ui/screens/login/login.dart';
 import 'package:project_evently/ui/utlils/app_theme.dart';
+
 import 'package:provider/provider.dart';
 
 // StreamController<int> streamController = StreamController();  ///  دية لحل مشكلة ان لو حد عمل ايفيت جديد يظهر علي طول مش لازم ت run ال app تاني هنا بقولوا انا عندي int جديد جية
@@ -42,11 +44,16 @@ void main() async {
 }
 
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
- late LanguageProvider languageProvider ;///هنا انا بعملها late عشان اعرفوا انا هاعملها زي الانا كاتبها عند build
- late ThemeProvider themeProvider ;
+class MyApp extends StatefulWidget {
+ const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+ late LanguageProvider languageProvider ; ///هنا انا بعملها late عشان اعرفوا انا هاعملها زي الانا كاتبها عند build
+ late ThemeProvider themeProvider ;
   @override
   Widget build(BuildContext context) {
     languageProvider = Provider.of(context);  /// لازم تعرف ال provider جواة ال build لازم ونفس الكلام في التانية
@@ -59,14 +66,13 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
         Locale('en'), // English
         Locale('ar'), // Spanish
       ],
-      home: Login(),
+      home: StartScreen(),
 
     );
   }

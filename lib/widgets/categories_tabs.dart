@@ -46,8 +46,7 @@ class _CategoriesTabsState extends State<CategoriesTabs> {
           widget.onTabSelected(selectedCategory) ; /// يبقا هنا ال onTabSelected معناها اني لما المستخدم يدوس علي حاجة تظهر بس كدا
             setState(() {});
           },
-          tabs: widget.categories.map((category)=>mapCategoryDmToTab(category , category == selectedCategory)).toList(),
-        /// category == selectedCategory : هنا بقلوا لو المستخدم داس علية يظهر التاب بلون الابيض الي هوا دا الي اختاروا يعني
+          tabs: widget.categories.map((category)=>mapCategoryDmToTab(category , category == selectedCategory)).toList(),/// category == selectedCategory : هنا بقلوا لو المستخدم داس علية يظهر التاب بلون الابيض الي هوا دا الي اختاروا يعني
 
       ),
     );

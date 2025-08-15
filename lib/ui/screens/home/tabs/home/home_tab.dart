@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:project_evently/data/firestore_utilts.dart';
 import 'package:project_evently/model/category_dm.dart';
+
 import 'package:project_evently/model/user_dm.dart';
 import 'package:project_evently/ui/utlils/app_assets.dart';
 import 'package:project_evently/ui/utlils/app_colors.dart';
+import 'package:project_evently/ui/utlils/app_routes.dart';
 import 'package:project_evently/widgets/categories_tabs.dart';
+
 import 'package:project_evently/widgets/event_widget.dart';
 
 class HomeTab extends StatefulWidget {
@@ -114,7 +117,11 @@ class _HomeTabState extends State<HomeTab> {
         return ListView.builder(
             itemCount: events.length ,
             itemBuilder: (context , index ){
-              return EventWidget(eventDm: events[index]); /// هنا بقا بقولوا اعملها بيديزين ال eventwidget بس بعتلوا الداتا بقا الي هيا في سطر 98
+              return InkWell(
+                  onTap: (){
+                    Navigator.push(context, AppRoutes.eventDetails(events[index]));
+                  },
+                  child: EventWidget(eventDm: events[index])); /// هنا بقا بقولوا اعملها بيديزين ال eventwidget بس بعتلوا الداتا بقا الي هيا في سطر 98
             });
       }else {
         return Center(child: CircularProgressIndicator());

@@ -188,7 +188,9 @@ class _AddEventState extends State<AddEvent> {
     EventDm eventDm = EventDm(
         id: widget.eventToEdit?.id ?? "", // دا كدا كدا خلاص ال firestore بتعملوا فا مش لازم
         title: titleController.text,
+
         categoryId: selectedCategory.title,
+
         date: selectedDate,
         description: descriptionController.text,
        ownerId: UserDm.currentUser!.id,

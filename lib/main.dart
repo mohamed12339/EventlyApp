@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
         Locale('en'), // English
         Locale('ar'), // Spanish
       ],
-      home: StartScreen(),
+      home: Login(),
 
     );
   }
